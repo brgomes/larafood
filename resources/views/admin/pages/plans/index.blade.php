@@ -21,6 +21,8 @@
             </form>
         </div>
         <div class="card-body">
+            @include('admin.includes.alerts')
+
             <table class="table table-condensed">
                 <thead>
                     <tr>
@@ -35,6 +37,7 @@
                             <td>{{ $plan->name }}</td>
                             <td>R$ {{ number_format($plan->price, 2, ',', '.') }}</td>
                             <td>
+                                <a href="{{ route('details.plan.index', $plan->url) }}" class="btn btn-primary">DETALHES</a>
                                 <a href="{{ route('plans.edit', $plan->url) }}" class="btn btn-info">EDITAR</a>
                                 <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-warning">VER</a>
                             </td>
