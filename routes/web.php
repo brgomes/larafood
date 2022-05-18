@@ -29,6 +29,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::put('plans/{url}', 'PlanController@update')->name('plans.update');
     Route::delete('plans/{url}', 'PlanController@destroy')->name('plans.destroy');
 
+    Route::any('profiles/search', 'ACL\ProfileController@search')
+        ->name('profiles.search');
+    Route::resource('profiles', 'ACL\ProfileController');
+
     // Home dashboard
     Route::get('/', 'PlanController@index')->name('admin.index');
 });
