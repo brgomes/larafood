@@ -45,19 +45,9 @@ RUN mkdir -p /home/$user/.composer && \
 # Install Composer 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-#RUN ssh-keyscan -t rsa github.com > /home/$user/.ssh/known_hosts
-
 # Set working directory
 WORKDIR /var/www
 
 USER $user
-
-# Install PHP CodeSniffer
-RUN composer global require "squizlabs/php_codesniffer=*"
-
-RUN /home/$user/.composer/vendor/bin/phpcs --config-set show_progress 1 && \
-    /home/$user/.composer/vendor/bin/phpcs --config-set colors 1 && \
-    /home/$user/.composer/vendor/bin/phpcs --config-set report_width 140 && \
-    /home/$user/.composer/vendor/bin/phpcs --config-set encoding utf-8
 
 ENV PATH="/home/$user/.composer/vendor/bin:${PATH}"

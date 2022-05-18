@@ -1,17 +1,16 @@
 version: "3"
 
 services:
-  sobgestao:
-    container_name: sobgestao
+  larafood:
+    container_name: larafood
     build: ./
     working_dir: /var/www
     ports:
-      - 8081:80
+      - 8091:80
     volumes:
       - ./.docker/php.ini:/usr/local/etc/php/php.ini
       - ./.docker/logs:/var/log/apache2
       - ./:/var/www
-      #- ~/.ssh/id_rsa:/user/.ssh/id_rsa
     networks:
       - localnet
 
