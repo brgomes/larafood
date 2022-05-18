@@ -39,6 +39,18 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         ->name('permissions.search');
     Route::resource('permissions', 'ACL\PermissionController');
 
+    // Permission x Profile
+    Route::get('profiles/{profile}/permissions', 'ACL\PermissionProfileController@index')
+        ->name('profiles.permissions');
+    Route::get('permissions/{permission}/profile', 'ACL\PermissionProfileController@profiles')
+        ->name('permissions.profiles');
+    Route::any('profiles/{profile}/permissions/create', 'ACL\PermissionProfileController@create')
+        ->name('profiles.permissions.create');
+    Route::post('profiles/{profile}/permissions/store', 'ACL\PermissionProfileController@store')
+        ->name('profiles.permissions.store');
+    Route::get('profiles/{profile}/permissions/{permission}/delete', 'ACL\PermissionProfileController@delete')
+        ->name('profiles.permissions.delete');
+
     // Home dashboard
     Route::get('/', 'PlanController@index')->name('admin.index');
 });
