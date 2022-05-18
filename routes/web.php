@@ -50,6 +50,18 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         ->name('profiles.permissions.store');
     Route::get('profiles/{profile}/permissions/{permission}/delete', 'ACL\PermissionProfileController@delete')
         ->name('profiles.permissions.delete');
+    
+    // Plan x Profile
+    Route::get('plans/{plan}/profiles', 'ACL\PlanProfileController@profiles')
+        ->name('plans.profiles');
+    Route::get('profiles/{profile}/plans', 'ACL\PlanProfileController@plans')
+        ->name('profiles.plans');
+    Route::any('plans/{plan}/profiles/create', 'ACL\PlanProfileController@create')
+        ->name('plans.profiles.create');
+    Route::post('plans/{plan}/profiles/store', 'ACL\PlanProfileController@store')
+        ->name('plans.profiles.store');
+    Route::get('plans/{plan}/profiles/{profile}/delete', 'ACL\PlanProfileController@delete')
+        ->name('plans.profiles.delete');
 
     // Home dashboard
     Route::get('/', 'PlanController@index')->name('admin.index');

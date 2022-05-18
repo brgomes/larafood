@@ -38,6 +38,7 @@
                                 <a href="{{ route('profiles.edit', $item) }}" class="btn btn-info">EDITAR</a>
                                 <a href="{{ route('profiles.show', $item) }}" class="btn btn-warning">VER</a>
                                 <a href="{{ route('profiles.permissions', $item) }}" class="btn btn-primary"><i class="fas fa-lock"></i></a>
+                                <a href="{{ route('profiles.plans', $item) }}" class="btn btn-default"><i class="fas fa-list-alt"></i></a>
                             </td>
                         </tr>
                     @endforeach
