@@ -64,6 +64,10 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::get('plans/{plan}/profiles/{profile}/delete', 'ACL\PlanProfileController@delete')
         ->name('plans.profiles.delete');
 
+    // Users
+    Route::any('users/search', 'UserController@search')->name('users.search');
+    Route::resource('users', 'UserController');
+
     // Home dashboard
     Route::get('/', 'PlanController@index')->name('admin.index');
 });

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'tenant_id', 'name', 'email', 'password',
     ];
 
     /**
@@ -36,4 +37,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /*protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('tenant', function (Builder $builder) {
+            $builder->where('tenant_id', auth()->user()->tenant_id);
+        });
+    }*/
+
+    public function scopeTenantUser(Builder $query)
+    {
+        return $query->where('tenant_id', auth()->user()->tenant_id);
+    }
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 }
