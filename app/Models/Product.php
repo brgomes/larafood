@@ -15,4 +15,21 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function categoriesAvailable($filter = null)
+    {
+        $categories = Category::whereNotIn('id', function ($query) {
+            $query->select('category_product.category_id')
+                ->from('category_product')
+                ->whereRaw("category_product.product_id = {$this->id}");
+        })
+        ->where(function ($queryFilter) use ($filter) {
+            if (isset($filter)) {
+                $queryFilter->where('categories.name', 'LIKE', "%{$filter}%");
+            }
+        })
+        ->paginate();
+
+        return $categories;
+    }
 }

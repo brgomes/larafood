@@ -26,7 +26,7 @@
             <table class="table table-condensed">
                 <thead>
                     <tr>
-                        <th>Image</th>
+                        <th width="150">Image</th>
                         <th>Título</th>
                         <th>Preço</th>
                         <th>Ações</th>
@@ -39,6 +39,7 @@
                             <td>{{ $item->title }}</td>
                             <td>{{ number_format($item->price, 2, ',', '.') }}</td>
                             <td>
+                                <a href="{{ route('products.categories', $item) }}" class="btn btn-primary" title="Categorias"><i class="fas fa-layer-group"></i></a>
                                 <a href="{{ route('products.edit', $item) }}" class="btn btn-info">EDITAR</a>
                                 <a href="{{ route('products.show', $item) }}" class="btn btn-warning">VER</a>
                             </td>

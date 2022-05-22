@@ -76,6 +76,18 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::any('products/search', 'ProductController@search')->name('products.search');
     Route::resource('products', 'ProductController');
 
+    // Product x Category
+    Route::get('products/{product}/categories', 'CategoryProductController@index')
+        ->name('products.categories');
+    Route::get('categories/{profile}/products', 'CategoryProductController@products')
+        ->name('categories.products');
+    Route::any('products/{product}/categories/create', 'CategoryProductController@create')
+        ->name('products.categories.create');
+    Route::post('products/{product}/categories/store', 'CategoryProductController@store')
+        ->name('products.categories.store');
+    Route::get('products/{product}/categories/{category}/delete', 'CategoryProductController@delete')
+        ->name('products.categories.delete');
+
     // Home dashboard
     Route::get('/', 'PlanController@index')->name('admin.index');
 });
