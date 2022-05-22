@@ -68,6 +68,10 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::any('users/search', 'UserController@search')->name('users.search');
     Route::resource('users', 'UserController');
 
+    // Categories
+    Route::any('categories/search', 'CategoryController@search')->name('categories.search');
+    Route::resource('categories', 'CategoryController');
+
     // Home dashboard
     Route::get('/', 'PlanController@index')->name('admin.index');
 });
