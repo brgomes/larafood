@@ -72,6 +72,10 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::any('categories/search', 'CategoryController@search')->name('categories.search');
     Route::resource('categories', 'CategoryController');
 
+    // Products
+    Route::any('products/search', 'ProductController@search')->name('products.search');
+    Route::resource('products', 'ProductController');
+
     // Home dashboard
     Route::get('/', 'PlanController@index')->name('admin.index');
 });
