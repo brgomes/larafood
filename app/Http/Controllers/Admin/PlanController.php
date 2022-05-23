@@ -13,6 +13,7 @@ class PlanController extends Controller
 
     public function __construct(Plan $plan)
     {
+        $this->middleware('can:plans');
         $this->repository = $plan;
     }
 
