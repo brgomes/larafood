@@ -76,6 +76,10 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::any('products/search', 'ProductController@search')->name('products.search');
     Route::resource('products', 'ProductController');
 
+    // Tables
+    Route::any('tables/search', 'TableController@search')->name('tables.search');
+    Route::resource('tables', 'TableController');
+
     // Product x Category
     Route::get('products/{product}/categories', 'CategoryProductController@index')
         ->name('products.categories');
