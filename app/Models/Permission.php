@@ -13,6 +13,11 @@ class Permission extends Model
         return $this->belongsToMany(Profile::class, 'permission_profile');
     }
 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'permission_role');
+    }
+
     public function search($filter = null)
     {
         $results = $this->where('name', 'LIKE', "%{$filter}%")

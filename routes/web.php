@@ -30,6 +30,11 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::put('plans/{url}', 'PlanController@update')->name('plans.update');
     Route::delete('plans/{url}', 'PlanController@destroy')->name('plans.destroy');
 
+    // Roles
+    Route::any('roles/search', 'ACL\RoleController@search')
+        ->name('roles.search');
+    Route::resource('roles', 'ACL\RoleController');
+
     // Profiles
     Route::any('profiles/search', 'ACL\ProfileController@search')
         ->name('profiles.search');
@@ -52,6 +57,18 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::get('profiles/{profile}/permissions/{permission}/delete', 'ACL\PermissionProfileController@delete')
         ->name('profiles.permissions.delete');
     
+    // Permission x Role
+    Route::get('roles/{role}/permissions', 'ACL\PermissionRoleController@index')
+        ->name('roles.permissions');
+    Route::get('permissions/{permission}/role', 'ACL\PermissionRoleController@roles')
+        ->name('permissions.roles');
+    Route::any('roles/{role}/permissions/create', 'ACL\PermissionRoleController@create')
+        ->name('roles.permissions.create');
+    Route::post('roles/{role}/permissions/store', 'ACL\PermissionRoleController@store')
+        ->name('roles.permissions.store');
+    Route::get('roles/{role}/permissions/{permission}/delete', 'ACL\PermissionRoleController@delete')
+        ->name('roles.permissions.delete');
+    
     // Plan x Profile
     Route::get('plans/{plan}/profiles', 'ACL\PlanProfileController@profiles')
         ->name('plans.profiles');
@@ -67,6 +84,18 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     // Users
     Route::any('users/search', 'UserController@search')->name('users.search');
     Route::resource('users', 'UserController');
+
+    // Role x User
+    Route::get('users/{user}/roles', 'ACL\RoleUserController@index')
+        ->name('users.roles');
+    Route::get('roles/{role}/users', 'ACL\RoleUserController@users')
+        ->name('roles.users');
+    Route::any('users/{user}/roles/create', 'ACL\RoleUserController@create')
+        ->name('users.roles.create');
+    Route::post('users/{user}/roles/store', 'ACL\RoleUserController@store')
+        ->name('users.roles.store');
+    Route::get('users/{user}/roles/{role}/delete', 'ACL\RoleUserController@delete')
+        ->name('users.roles.delete');
 
     // Categories
     Route::any('categories/search', 'CategoryController@search')->name('categories.search');
