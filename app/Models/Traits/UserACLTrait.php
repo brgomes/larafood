@@ -2,16 +2,53 @@
 
 namespace App\Models\Traits;
 
+use App\Models\Tenant;
+
 trait UserACLTrait
 {
-    public function permissions()
+    public function permissions(): array
     {
-        $profiles = $this->tenant->plan->profiles;
+        $permissionsPlan = $this->permissionsPlan();
+        $permissionsRole = $this->permissionsRole();
+        $permissions = [];
+
+        foreach ($permissionsRole as $permission) {
+            if (in_array($permission, $permissionsPlan)) {
+                $permissions[] = $permission;
+            }
+        }
+
+        return $permissions;
+    }
+
+    public function permissionsPlan(): array
+    {
+        $tenant = Tenant::with('plan.profiles.permissions')
+            ->where('id', $this->tenant_id)
+            ->first();
+
+        $profiles = $tenant->plan->profiles;
         $permissions = [];
 
         if ($profiles->count()) {
             foreach ($profiles as $profile) {
                 foreach ($profile->permissions as $permission) {
+                    array_push($permissions, $permission->name);
+                }
+            }
+        }
+
+        return $permissions;
+    }
+
+    public function permissionsRole(): array
+    {
+        $roles = $this->roles()->with('permissions')->get();
+        $permissions = [];
+
+        if ($roles->count()) {
+            foreach ($roles as $role) {
+                foreach ($role->permissions as $permission) {
                     array_push($permissions, $permission->name);
                 }
             }
