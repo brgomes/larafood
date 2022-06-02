@@ -36,6 +36,9 @@ Route::group([
         Route::get('me', 'Auth\AuthClientController@me');
         Route::get('logout', 'Auth\AuthClientController@logout');
     });
+
+    Route::post('orders', 'OrderApiController@store');
+    Route::get('orders/{identify}', 'OrderApiController@show');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
