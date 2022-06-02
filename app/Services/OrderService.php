@@ -60,7 +60,7 @@ class OrderService
             $tableId
         );
 
-        //$this->orderRepository->registerProductsOrder($order->id, $productsOrder);
+        $this->orderRepository->registerProductsOrder($order->id, $productsOrder);
 
         return $order;
     }
@@ -90,7 +90,7 @@ class OrderService
     {
         $products = [];
         foreach ($productsOrder as $productOrder) {
-            $product = $this->productRepository->getProductByUuid($productOrder['identify']);
+            $product = $this->productRepository->productByUuid($productOrder['identify']);
 
             array_push($products, [
                 'id' => $product->id,
@@ -123,7 +123,7 @@ class OrderService
     private function getTableIdByOrder(string $uuid = null)
     {
         if ($uuid) {
-            $table = $this->tableRepository->getTableByUuid($uuid);
+            $table = $this->tableRepository->tableByUuid($uuid);
 
             return $table->id;
         }

@@ -49,4 +49,66 @@ class OrderRepository implements OrderRepositoryInterface
     {
         return $this->entity->where('identify', $identify)->first();
     }
+
+    public function registerProductsOrder(int $orderId, array $products)
+    {
+        $order = $this->entity->find($orderId);
+
+        $orderProducts = [];
+
+        foreach ($products as $product) {
+            $orderProducts[$product['id']] = [
+                'qty' => $product['qty'],
+                'price' => $product['price'],
+            ];
+        }
+
+        $order->products()->attach($orderProducts);
+
+        // foreach ($products as $product) {
+        //     array_push($orderProducts, [
+        //         'order_id' => $orderId,
+        //         'product_id' => $product['id'],
+        //         'qty' => $product['qty'],
+        //         'price' => $product['price'],
+        //     ]);
+        // }
+
+        // DB::table('order_product')->insert($orderProducts);
+    }
+
+    public function getOrdersByClientId(int $idClient)
+    {
+        $orders = $this->entity
+            ->where('client_id', $idClient)
+            ->paginate();
+
+        return $orders;
+    }
+
+    public function getOrdersByTenantId(int $idTenant, string $status, string $date = null)
+    {
+        $orders = $this->entity
+            ->where('tenant_id', $idTenant)
+            ->where(function ($query) use ($status) {
+                if ($status != 'all') {
+                    return $query->where('status', $status);
+                }
+            })
+            ->where(function ($query) use ($date) {
+                if ($date) {
+                    return $query->whereDate('created_at', $date);
+                }
+            })
+            ->get();
+
+        return $orders;
+    }
+
+    public function updateStatusOrder(string $identify, string $status)
+    {
+        $this->entity->where('identify', $identify)->update(['status' => $status]);
+
+        return $this->entity->where('identify', $identify)->first();
+    }
 }

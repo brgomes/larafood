@@ -32,12 +32,16 @@ Route::group([
 
     Route::post('client', 'Auth\RegisterController@store');
     Route::post('sanctum/token', 'Auth\AuthClientController@auth');
-    Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'auth'], function () {
         Route::get('me', 'Auth\AuthClientController@me');
         Route::get('logout', 'Auth\AuthClientController@logout');
+
+        Route::post('orders', 'OrderApiController@store');
+        Route::get('orders', 'OrderApiController@myOrders');
+
+        Route::post('orders/{identifyOrder}/evaluations', 'EvaluationApiController@store');
     });
 
-    Route::post('orders', 'OrderApiController@store');
     Route::get('orders/{identify}', 'OrderApiController@show');
 });
 
