@@ -27,4 +27,9 @@ class TableService
     {
         return $this->tableRepository->tableByIdentify($identify);
     }
+
+    public function tableByUuid(string $uuid)
+    {
+        return $this->tableRepository->tableByUuid($uuid);
+    }
 }

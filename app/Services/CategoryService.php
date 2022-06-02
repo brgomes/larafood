@@ -23,8 +23,8 @@ class CategoryService
         return $this->categoryRepository->categoriesByTenantUuid($uuid);
     }
 
-    public function categoryByUrl(string $url)
+    public function categoryByUuid(string $uuid)
     {
-        return $this->categoryRepository->categoryByUrl($url);
+        return $this->categoryRepository->categoryByUuid($uuid);
     }
 }

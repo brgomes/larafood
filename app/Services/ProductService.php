@@ -25,8 +25,8 @@ class ProductService
         return $this->productRepository->productsByTenantId($tenant->id, $categories);
     }
 
-    public function productByFlag(string $flag)
+    public function productByUuid(string $uuid)
     {
-        return $this->productRepository->productByFlag($flag);
+        return $this->productRepository->productByUuid($uuid);
     }
 }
