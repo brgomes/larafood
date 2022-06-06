@@ -18,7 +18,7 @@ class RegisterTest extends TestCase
         //$response->dump();
 
         $response->assertStatus(422)
-            ->assertExactJson([
+            ->assertSimilarJson([
                 'errors' => [
                     'password' => [
                         __('validation.required', ['attribute' => 'password']),
@@ -39,7 +39,7 @@ class RegisterTest extends TestCase
         $response = $this->postJson('/api/v1/client', $payload);
 
         $response->assertStatus(201)
-            ->assertExactJson([
+            ->assertSimilarJson([
                 'data' => [
                     'name' => $payload['name'],
                     'email' => $payload['email'],

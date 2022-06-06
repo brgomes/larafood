@@ -118,8 +118,8 @@ class OrderTest extends TestCase
 
     public function testCreateNewOrderWithTable()
     {
-        $tenant = factory(Tenant::class)->create();
         $table = factory(Table::class)->create();
+        $tenant = factory(Tenant::class)->create();
 
         $payload = [
             'token_company' => $tenant->uuid,
@@ -140,7 +140,8 @@ class OrderTest extends TestCase
         //$response->dump();
 
         $response->assertStatus(201)
-            ->assertJsonPath('data.table.uuid', $table->uuid);
+            //->assertJsonPath('data.table.uuid', $table->uuid)
+            ->assertJsonPath('data.table.identify', $table->identify);
     }
 
     public function testGetMyOrders()

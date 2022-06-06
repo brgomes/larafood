@@ -115,6 +115,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
 
     // Tables
     Route::any('tables/search', 'TableController@search')->name('tables.search');
+    Route::get('tables/qrcode/{identify}', 'TableController@qrcode')->name('tables.qrcode');
     Route::resource('tables', 'TableController');
 
     // Tenants
@@ -134,7 +135,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
         ->name('products.categories.delete');
 
     // Home dashboard
-    Route::get('/', 'PlanController@index')->name('admin.index');
+    Route::get('/', 'DashboardController@home')->name('admin.index');
 });
 
 Route::get('/', 'Site\SiteController@index')->name('site.home');

@@ -37,6 +37,7 @@
                             <td>{{ $item->identify }}</td>
                             <td>{{ $item->description }}</td>
                             <td>
+                                <a href="{{ route('tables.qrcode', $item->uuid) }}" class="btn btn-primary" title="QRcode" target="_blank"><i class="fas fa-qrcode"></i></a>
                                 <a href="{{ route('tables.edit', $item) }}" class="btn btn-info">EDITAR</a>
                                 <a href="{{ route('tables.show', $item) }}" class="btn btn-warning">VER</a>
                             </td>

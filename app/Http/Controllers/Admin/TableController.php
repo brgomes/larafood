@@ -57,6 +57,18 @@ class TableController extends Controller
         return view('admin.pages.tables.show', compact('table'));
     }
 
+    public function qrcode($identify)
+    {
+        if (!$table = $this->repository->where('uuid', $identify)->first()) {
+            return redirect()->back();
+        }
+
+        $tenant = auth()->user()->tenant;
+        $uri = env('URI_CLIENT') . "/{$tenant->uuid}/{$table->uuid}";
+
+        return view('admin.pages.tables.qrcode', compact('uri'));
+    }
+
     public function edit(Table $table)
     {
         return view('admin.pages.tables.edit', compact('table'));

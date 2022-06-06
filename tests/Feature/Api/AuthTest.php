@@ -26,7 +26,7 @@ class AuthTest extends TestCase
         $response = $this->postJson('/api/v1/sanctum/token', $payload);
 
         $response->assertStatus(404)
-            ->assertExactJson([
+            ->assertSimilarJson([
                 'message' => trans('messages.invalid_credentials'),
             ]);
     }

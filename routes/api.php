@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return response()->json(['message' => 'ok']);
+});
+
 Route::group([
     'prefix' => 'v1',
     'namespace' => 'Api',
