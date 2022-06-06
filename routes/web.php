@@ -134,6 +134,9 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::get('products/{product}/categories/{category}/delete', 'CategoryProductController@delete')
         ->name('products.categories.delete');
 
+    // Orders
+    Route::get('orders', 'OrderController@index')->name('orders.index');
+
     // Home dashboard
     Route::get('/', 'DashboardController@home')->name('admin.index');
 });
