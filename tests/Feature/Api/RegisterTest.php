@@ -21,7 +21,7 @@ class RegisterTest extends TestCase
             ->assertSimilarJson([
                 'errors' => [
                     'password' => [
-                        __('validation.required', ['attribute' => 'password']),
+                        __('validation.required', ['attribute' => 'senha']),
                     ],
                 ],
                 'message' => 'The given data was invalid.',
