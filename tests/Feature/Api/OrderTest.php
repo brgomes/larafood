@@ -140,7 +140,7 @@ class OrderTest extends TestCase
         //$response->dump();
 
         $response->assertStatus(201)
-            //->assertJsonPath('data.table.uuid', $table->uuid)
+            ->assertJsonPath('data.table.uuid', (string) $table->uuid)
             ->assertJsonPath('data.table.identify', $table->identify);
     }
 
