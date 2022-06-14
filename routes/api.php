@@ -39,7 +39,7 @@ Route::group([
 
     Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'auth'], function () {
         Route::get('me', 'Auth\AuthClientController@me');
-        Route::get('logout', 'Auth\AuthClientController@logout');
+        Route::post('logout', 'Auth\AuthClientController@logout');
         Route::get('orders', 'OrderApiController@myOrders');
 
         Route::post('orders/{identifyOrder}/evaluations', 'EvaluationApiController@store');
